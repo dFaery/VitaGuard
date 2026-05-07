@@ -272,7 +272,7 @@
                                 <p>Doctors</p>
                             </a>
                         </li>
-                        <li class="nav-header">EXAMPLES</li>
+                        <!-- <li class="nav-header">EXAMPLES</li>
                         <li class="nav-item">
                             <a href="#" class="nav-link">
                                 <i class="nav-icon bi bi-box-arrow-in-right"></i>
@@ -405,7 +405,7 @@
                                 <p>License</p>
                             </a>
                         </li>
-                    </ul>
+                    </ul> -->
                     <!--end::Sidebar Menu-->
                 </nav>
             </div>
@@ -414,6 +414,7 @@
         <!--end::Sidebar-->
         <!--begin::App Main-->
         <main class="app-main">
+        @yield('content')
 
         </main>
         <!--end::App Main-->

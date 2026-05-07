@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="{{ asset('loginTemplate/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ asset('loginTemplate/css/style.css') }}">
 
-    <title>VitaGuard - Login</title>
+    <title>VitaGuard - Register</title>
 </head>
 
 <body>
@@ -23,9 +23,8 @@
             <div class="container">
                 <div class="row align-items-center justify-content-center">
                     <div class="col-md-7">
-                        <h3>Login to <strong>VitaGuard</strong></h3>
+                        <h3>Create an Account</h3>
                         <p class="mb-4">Login to explore more healthy facts and needs here!</p>
-                        <p>username: reza_h | password: RezaPwd99!</p>
                         <form method="POST" action="{{route('login.process')}}">
                             @csrf
                             <div class="form-group first">
@@ -39,20 +38,10 @@
                             <div class="form-group last mb-3">
                                 <label for="password">Password</label>
                                 <input type="password" name="password" class="form-control" placeholder="Input your password" id="password" required>
-                            </div>
-
-                            <!-- <div class="d-flex mb-3 align-items-center">
-                                <label class="control control--checkbox mb-0"><span class="caption">Remember me</span>
-                                    <input type="checkbox" checked="checked" />
-                                    <div class="control__indicator"></div>
-                                </label>
-                                <span class="ml-auto"><a href="#" class="forgot-pass">Forgot Password</a></span>
-                            </div> -->
-
+                            </div>                            
                             <input type="submit" value="Log In" class="btn btn-block btn-primary">
-
                         </form>
-                        <p class="text-center mt-3">Don't have any account? <a href="/register" class="text-primary text-decoration-none">Register</a></p>
+                        <p class="text-center mt-3">Already have an account? <a href="{{ route('login') }}" class="text-primary text-decoration-none"><b>Login</b></a></p>
                     </div>
                 </div>
             </div>

@@ -73,15 +73,11 @@
     @endif
 
     @auth
-    @if(Auth::user()->role == 'admin')
-    @include('layouts.navbar.admin')
-    @else
-    @include('layouts.navbar.member')
-    @endif
+        @include('layouts.navbar.member')
     @endauth
 
     @guest
-    @include('layouts.navbar.guest')
+        @include('layouts.navbar.guest')
     @endguest
 
     @yield('content')

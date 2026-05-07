@@ -14,8 +14,8 @@
             </picture>
 
             <div class="carousel-caption d-none d-md-block">
-                <h5>Lorem ipsum</h5>
-                <p>Lorem ipsum dolor sit amet...</p>
+                <h5>Template Nav admin bisa diakses dengan login</h5>
+                <p>username: reza_h | password: RezaPwd99!</p>
             </div>
         </div>
 
@@ -26,8 +26,8 @@
             </picture>
 
             <div class="carousel-caption d-none d-md-block">
-                <h5>Lorem ipsum</h5>
-                <p>Lorem ipsum dolor sit amet...</p>
+                <h5>Template Nav admin bisa diakses dengan login</h5>
+                <p>username: reza_h | password: RezaPwd99!</p>
             </div>
         </div>
 
@@ -37,9 +37,9 @@
                 <img class="d-block w-100" src="/assets/images/hero-bg.jpg">
             </picture>
 
-            <div class="carousel-caption d-none d-md-block">
-                <h5>Lorem ipsum</h5>
-                <p>Lorem ipsum dolor sit amet...</p>
+            <div class="carousel-caption d-none d-md-block">                
+                <h5>Template Nav admin bisa diakses dengan login</h5>
+                <p>username: reza_h | password: RezaPwd99!</p>                
             </div>
         </div>
     </div>
