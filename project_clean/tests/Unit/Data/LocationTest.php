@@ -11,7 +11,7 @@ use InvalidArgumentException;
 
 class LocationTest extends TestCase
 {
-
+    #region PROVINCE
     public function test_create_province(): void
     {
         $prov = new Province(1, "East Java");
@@ -35,6 +35,9 @@ class LocationTest extends TestCase
 
         $prov = new Province(1, "    ");
     }
+    #endregion
+
+    #region CITY
     public function test_create_city(): void
     {
         $prov = new Province(1, "East Java");
@@ -60,4 +63,61 @@ class LocationTest extends TestCase
 
         $res = new City(1, "    ", $prov);
     }
+    #endregion
+    #region DISTRICT
+    public function test_create_district(): void
+    {
+        $prov = new Province(1, "East Java");
+        $city = new City(1, "Surabaya", $prov);
+        $dist = new District(1, "Gubeng", $city);
+        $this->assertEquals($dist->getId(), 1);
+        $this->assertEquals($dist->getName(), "Gubeng");
+        $this->assertEquals($dist->getCity(), $city);
+        $this->assertEquals($dist->getCity()->getProvince(), $prov);
+    }
+
+    public function test_district_id_illegal(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('District ID must be a positive integer.');
+
+        $prov = new Province(1, "East Java");
+        $city = new City(1, "Surabaya", $prov);
+        $dist = new District(-1, "Gubeng", $city);
+    }
+    public function test_district_name_illegal(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('District name cannot be empty.');
+
+        $prov = new Province(1, "East Java");
+        $city = new City(1, "Surabaya", $prov);
+        $dist = new District(1, "   ", $city);
+    }
+    #endregion
+
+    #region ADDRESS
+    public function test_create_address(): void
+    {
+        $prov = new Province(1, "East Java");
+        $city = new City(1, "Surabaya", $prov);
+        $dist = new District(1, "Gubeng", $city);
+        $address = new Address("Jalan Raya Gubeng No.1",$dist);
+        $this->assertEquals($address->getDetail(), "Jalan Raya Gubeng No.1");
+        $this->assertEquals($address->getDistrict(), $dist);
+        $this->assertEquals($address->getDistrict()->getCity(), $city);
+        $this->assertEquals($dist->getCity()->getProvince(), $prov);
+    }
+
+    public function test_address_detail_illegal(): void
+    {
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('Address detail cannot be empty.');
+
+        $prov = new Province(1, "East Java");
+        $city = new City(1, "Surabaya", $prov);
+        $dist = new District(1, "Gubeng", $city);
+        $address = new Address("             ",$dist);
+    }
+    #endregion
 }
