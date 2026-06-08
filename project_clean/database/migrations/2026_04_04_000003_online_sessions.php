@@ -11,24 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('consultations', function (Blueprint $table) {
+        Schema::create('online_sessions', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('online_session_id');
-            $table->string('member_username', 50);
+            $table->string('doctor', 50);
             $table->dateTime('start_time');
             $table->dateTime('end_time')->nullable();
-            $table->text('notes')->nullable();
-            $table->dateTime('paid_at')->nullable();
+            $table->decimal('consultation_fee', 9, 2);
+            $table->text('description');
             $table->softDeletes();
 
-            $table->foreign('online_session_id')
-                ->references('id')
-                ->on('online_sessions')
-                ->cascadeOnUpdate();
-
-            $table->foreign('member_username')
+            $table->foreign('doctor')
                 ->references('username')
-                ->on('members')
+                ->on('doctors')
                 ->cascadeOnUpdate();
         });
     }
@@ -38,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('consultations');
+        Schema::dropIfExists('online_sessions');
     }
 };

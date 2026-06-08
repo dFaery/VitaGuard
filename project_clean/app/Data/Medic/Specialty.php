@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Data\Content;
+namespace App\Data\Medic;
 
 use InvalidArgumentException;
 
-class Topic {
+class Specialty {
     #region PROPERTIES
     private int $id;
     private string $name;
@@ -30,14 +30,14 @@ class Topic {
     #region SETTERS
     public function setId(int $value): void {
         if ($value <= 0) {
-            throw new InvalidArgumentException('Topic ID must be a positive integer.');
+            throw new InvalidArgumentException('Specialty ID must be a positive integer.');
         }
         $this->id = $value;
     }
 
     public function setName(string $value): void {
         if (empty(trim($value))) {
-            throw new InvalidArgumentException('Topic name cannot be empty.');
+            throw new InvalidArgumentException('Specialty name cannot be empty.');
         }
         $this->name = $value;
     }

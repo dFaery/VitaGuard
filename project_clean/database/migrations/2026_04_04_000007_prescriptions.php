@@ -13,20 +13,20 @@ return new class extends Migration
     {
         Schema::create('prescriptions', function (Blueprint $table) {
             $table->id();
-            $table->string('doctor_username', 50);
-            $table->string('member_username', 50);
+            $table->string('doctor', 50);
+            $table->string('patient', 50);
             $table->unsignedBigInteger('appointment_id')->nullable();
             $table->unsignedBigInteger('consultation_id')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
             $table->softDeletes();
 
-            $table->foreign('doctor_username')
+            $table->foreign('doctor')
                 ->references('username')
                 ->on('doctors')
                 ->cascadeOnUpdate();
 
-            $table->foreign('member_username')
+            $table->foreign('patient')
                 ->references('username')
                 ->on('members')
                 ->cascadeOnUpdate();

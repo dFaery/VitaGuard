@@ -1,4 +1,4 @@
-id,doctor_username,facility_id,notes,day_of_week,start_time,end_time,break_start_time,break_end_time,slot_duration_minutes,max_patients,consultation_fee,created_at,updated_at
+id,doctor_username,facility_id,notes,day_of_week,open_time,close_time,break_start_time,break_end_time,slot_duration_minutes,max_patients,consultation_fee,created_at,updated_at
 1,doc001,1,Jadwal dokter Andi,monday,08:00:00,14:00:00,12:00:00,13:00:00,30,12,150000.00,2026-04-01 08:00:00,2026-04-01 08:00:00
 2,doc002,2,Jadwal dokter Budi,tuesday,09:00:00,15:00:00,12:00:00,13:00:00,30,10,200000.00,2026-04-01 09:00:00,2026-04-01 09:00:00
 3,doc003,3,Jadwal dokter Citra,wednesday,10:00:00,16:00:00,12:30:00,13:30:00,45,8,250000.00,2026-04-02 10:00:00,2026-04-02 10:00:00

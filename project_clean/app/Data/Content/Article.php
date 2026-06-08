@@ -10,54 +10,83 @@ use InvalidArgumentException;
 class Article
 {
     #region PROPERTIES
-    public User $creator {
-        get => $this->creator;
-        set(User $value) {
-            $this->creator = $value;
-        }
-    }
-
-    public Topic $topic {
-        get => $this->topic;
-        set(Topic $value) {
-            $this->topic = $value;
-        }
-    }
-
-    public string $content {
-        get => $this->content;
-        set(string $value) {
-            if (empty(trim($value))) {
-                throw new InvalidArgumentException('Article content cannot be empty.');
-            }
-            $this->content = $value;
-        }
-    }
-
-    public Carbon $created_at {
-        get => $this->created_at;
-        set(Carbon $value) => $this->created_at = $value;
-    }
-
-    public Carbon $updated_at {
-        get => $this->updated_at;
-        set(Carbon $value) => $this->updated_at = $value;
-    }
+    private User $creator;
+    private Topic $topic;
+    private string $content;
+    private Carbon $createdAt;
+    private Carbon $updatedAt;
     #endregion
 
     #region CONSTRUCTOR
     public function __construct(
         User $creator,
         Topic $topic,
-        string $content = '',
-        ?Carbon $created_at = null,
-        ?Carbon $updated_at = null
+        string $content,
+        ?Carbon $createdAt = null,
+        ?Carbon $updatedAt = null
     ) {
+        $this->setCreator($creator);
+        $this->setTopic($topic);
+        $this->setContent($content);
+        $this->setCreatedAt($createdAt ?? Carbon::now());
+        $this->setUpdatedAt($updatedAt ?? Carbon::now());
+    }
+    #endregion
+
+    #region GETTERS
+    public function getCreator(): User
+    {
+        return $this->creator;
+    }
+
+    public function getTopic(): Topic
+    {
+        return $this->topic;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function getCreatedAt(): Carbon
+    {
+        return $this->createdAt;
+    }
+
+    public function getUpdatedAt(): Carbon
+    {
+        return $this->updatedAt;
+    }
+    #endregion
+
+    #region SETTERS
+    public function setCreator(User $creator): void
+    {
         $this->creator = $creator;
+    }
+
+    public function setTopic(Topic $topic): void
+    {
         $this->topic = $topic;
+    }
+
+    public function setContent(string $content): void
+    {
+        if (empty(trim($content))) {
+            throw new InvalidArgumentException('Article content cannot be empty.');
+        }
         $this->content = $content;
-        $this->created_at = $created_at ?? Carbon::now();
-        $this->updated_at = $updated_at ?? Carbon::now();
+    }
+
+    public function setCreatedAt(Carbon $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    public function setUpdatedAt(Carbon $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
     #endregion
 
@@ -68,25 +97,25 @@ class Article
             'creator'    => $this->creator->toArray(), 
             'topic'      => $this->topic->toArray(),
             'content'    => $this->content,
-            'created_at' => $this->created_at->toDateTimeString(),
-            'updated_at' => $this->updated_at->toDateTimeString(),
+            'created_at' => $this->createdAt->toDateTimeString(),
+            'updated_at' => $this->updatedAt->toDateTimeString(),
         ];
     }
 
     public static function fromArray(array $data): self
     {
+        check_array_keys(
+            array_keys(get_class_vars(self::class)),
+            $data,
+            class_basename(self::class)
+        );
+
         return new self(
-            isset($data['creator']) && is_array($data['creator']) 
-                ? User::fromArray($data['creator']) 
-                : null,
-                
-            isset($data['topic']) && is_array($data['topic']) 
-                ? Topic::fromArray($data['topic']) 
-                : null,
-                
+            User::fromArray($data['creator']), 
+            Topic::fromArray($data['topic']),
             $data['content'] ?? '',
-            isset($data['created_at']) ? Carbon::parse($data['created_at']) : null,
-            isset($data['updated_at']) ? Carbon::parse($data['updated_at']) : null
+            Carbon::parse($data['created_at']),
+            Carbon::parse($data['updated_at'])
         );
     }
     #endregion

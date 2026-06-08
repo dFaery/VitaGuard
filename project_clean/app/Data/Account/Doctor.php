@@ -7,11 +7,11 @@ use App\Data\Location\Address;
 use App\Data\Value\Account\Role;
 use App\Data\Value\Account\Status;
 use App\Data\Value\Account\Gender;
+use App\Data\Medic\Specialty;
 
 use Carbon\Carbon;
 use InvalidArgumentException;
 
-//TODO: TEST
 class Doctor extends User
 {
     #region PROPERTIES
@@ -24,6 +24,7 @@ class Doctor extends User
     private Gender $gender;
     private Carbon $dateOfBirth;
     private Address $address;
+    private array $specialties;
     #endregion
 
     #region CONSTRUCTOR
@@ -40,7 +41,8 @@ class Doctor extends User
         float $rating,
         Gender $gender,
         Carbon $dateOfBirth,
-        Address $address
+        Address $address,
+        array $specialties
     ) {
         parent::__construct($username, $email, $phoneNumber, Role::DOCTOR, $status);
         $this->setPrefixName($prefixName);
@@ -99,6 +101,13 @@ class Doctor extends User
     public function getAddress(): Address
     {
         return $this->address;
+    }
+
+    /**
+     * @return Specialty[]
+     */
+    public function getSpecialties(): array{
+        return $this->specialties;
     }
     #endregion
 
@@ -180,6 +189,16 @@ class Doctor extends User
     {
         $this->address = $value;
     }
+
+    public function setSpecialties(array $specialties){
+        foreach($specialties as $specialty){
+            $this->addSpecialty($specialty);
+        }
+    }
+
+    public function addSpecialty(Specialty $specialty){
+        $this->specialties[] = $specialty;
+    }
     #endregion
 
     #region UTILITIES
@@ -219,7 +238,8 @@ class Doctor extends User
             (float)$data['rating'],
             Gender::from($data['gender']),
             Carbon::parse($data['dateOfBirth']),
-            Address::fromArray($data['address'])
+            Address::fromArray($data['address']),
+            $data['specialties']
         );
     }
     #endregion

@@ -78,13 +78,11 @@ class MemberTest extends TestCase
         $member->setFirstName('');
     }
 
-    public function test_middle_name_cannot_be_empty(): void
+    public function test_middle_name_can_be_empty(): void
     {
-        $this->expectException(InvalidArgumentException::class);
-        $this->expectExceptionMessage('Middle name cannot be empty.');
-
         $member = $this->createMember();
         $member->setMiddleName('');
+        $this->assertEquals($member->getMiddleName(),"");
     }
 
     public function test_last_name_cannot_be_empty(): void

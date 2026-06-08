@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('schedules', function (Blueprint $table){
+        Schema::create('doctor_schedules', function (Blueprint $table){
             $table->id();
             $table->string('doctor_username', 50);
             $table->foreign('doctor_username')->references('username')->on('doctors');
@@ -19,8 +19,8 @@ return new class extends Migration
             $table->foreign('facility_id')->references('id')->on('facilities');
             $table->text('notes')->nullable();
             $table->enum('day_of_week', ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']);
-            $table->time('start_time');
-            $table->time('end_time');
+            $table->time('open_time');
+            $table->time('close_time');
             $table->time('break_start_time')->nullable();
             $table->time('break_end_time')->nullable();
             $table->integer('slot_duration_minutes')->default(30)->nullable();
@@ -35,6 +35,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('schedules');
+        Schema::dropIfExists('doctor_schedules');
     }
 };

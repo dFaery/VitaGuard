@@ -1,4 +1,4 @@
-id,member_username,schedule_id,appointment_date,appointment_time,queue_order,status,notes,check_in_time,completed_time,created_at,updated_at,deleted_at
+id,patient,schedule_id,date,time,queue_order,status,notes,check_in_time,completed_time,created_at,updated_at,deleted_at
 1,jdoe01,1,2026-04-13,8:00:00,1,completed,Kontrol rutin,2026-04-13 7:55:00,2026-04-13 8:25:10,2026-04-11 8:00:00,2026-04-11 8:00:00,2001-01-01 0:00:00
 2,charlie77,1,2026-04-13,8:30:00,2,completed,Cek alergi,2026-04-13 8:22:15,2026-04-13 8:55:40,2026-04-11 8:15:00,2026-04-11 8:15:00,2001-01-02 0:00:00
 3,eko_prat,2,2026-04-14,9:00:00,1,confirmed,Konsultasi umum,2001-01-01 0:00:00,2001-01-01 0:00:00,2026-04-11 8:30:00,2026-04-11 8:30:00,2001-01-03 0:00:00

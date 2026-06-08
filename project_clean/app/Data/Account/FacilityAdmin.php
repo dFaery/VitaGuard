@@ -2,14 +2,14 @@
 
 namespace App\Data\Account;
 
+use App\Data\Service\Facility;
 use App\Data\Value\Account\Role;
 use App\Data\Value\Account\Status;
 
 class FacilityAdmin extends User
 {
     #region FIELDS
-    //TODO: CREATE FACILITY
-    private $facility;
+    private Facility $facility;
     #endregion
 
     #region CONSTRUCTOR
@@ -17,16 +17,34 @@ class FacilityAdmin extends User
         string $username,
         string $email,
         string $phoneNumber,
-        Status $status = Status::ACTIVE
+        Facility $facility,
+        Status $status
     ) {
         parent::__construct($username, $email, $phoneNumber, Role::FACILITY_ADMIN, $status);
+        $this->setFacility($facility);
+    }
+    #endregion
+
+    #region GETTERS
+    public function getFacility(): Facility
+    {
+        return $this->facility;
+    }
+    #endregion
+
+    #region SETTERS
+    public function setFacility(Facility $value): void
+    {
+        $this->facility = $value;
     }
     #endregion
 
     #region UTILITIES
     public function toArray(): array
     {
-        return parent::toArray();
+        return array_merge(parent::toArray(), [
+            'facility' => $this->getFacility()->toArray(),
+        ]);
     }
 
     public static function fromArray(array $data): self
@@ -41,6 +59,7 @@ class FacilityAdmin extends User
             $data['username'],
             $data['email'],
             $data['phoneNumber'],
+            Facility::fromArray($data['facility']),
             Status::from($data['status'])
         );
     }

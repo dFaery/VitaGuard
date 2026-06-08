@@ -5,7 +5,7 @@ namespace App\Data\Account;
 use App\Data\Value\Account\Role;
 use App\Data\Value\Account\Status;
 use InvalidArgumentException;
-use Throwable;
+use RuntimeException;
 
 abstract class User
 {
@@ -128,6 +128,29 @@ abstract class User
             'role' => $this->role->value,
             'status' => $this->status->value,
         ];
+    }
+
+    public static function fromArray(array $data): self
+    {
+        if (!isset($data['role'])) {
+            throw new InvalidArgumentException("Missing 'role' key required for dynamic hydration.");
+        }
+
+        $role = $data['role'] instanceof Role
+            ? $data['role']
+            : Role::tryFrom($data['role']);
+
+        if (!$role) {
+            throw new InvalidArgumentException("Invalid or unsupported role provided.");
+        }
+
+        $targetClass = $role->getClass();
+
+        if (!class_exists($targetClass)) {
+            throw new RuntimeException("Target child class '{$targetClass}' does not exist.");
+        }
+
+        return new $targetClass($data);
     }
     #endregion
 }
