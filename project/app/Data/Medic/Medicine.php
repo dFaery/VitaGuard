@@ -11,8 +11,8 @@ class Medicine
     #region FIELDS
     private int $id;
     private string $name;
-    private DosageForm $dosageForm;
-    private MedicineClass $medicineClass;
+    private DosageForm $dosage_form;
+    private MedicineClass $medicine_class;
     private string $description;
     #endregion
 
@@ -20,14 +20,14 @@ class Medicine
     public function __construct(
         int $id,
         string $name,
-        DosageForm $dosageForm,
-        MedicineClass $medicineClass,
+        DosageForm $dosage_form,
+        MedicineClass $medicine_class,
         string $description
     ) {
         $this->setId($id);
         $this->setName($name);
-        $this->setDosageForm($dosageForm);
-        $this->setMedicineClass($medicineClass);
+        $this->setDosageForm($dosage_form);
+        $this->setMedicineClass($medicine_class);
         $this->setDescription($description);
     }
     #endregion
@@ -45,12 +45,12 @@ class Medicine
 
     public function getDosageForm(): DosageForm
     {
-        return $this->dosageForm;
+        return $this->dosage_form;
     }
 
     public function getMedicineClass(): MedicineClass
     {
-        return $this->medicineClass;
+        return $this->medicine_class;
     }
 
     public function getDescription(): string
@@ -75,12 +75,12 @@ class Medicine
 
     public function setDosageForm(DosageForm $value): void
     {
-        $this->dosageForm = $value;
+        $this->dosage_form = $value;
     }
 
     public function setMedicineClass(MedicineClass $value): void
     {
-        $this->medicineClass = $value;
+        $this->medicine_class = $value;
     }
 
     public function setDescription(string $value): void
