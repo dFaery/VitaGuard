@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      */
@@ -19,7 +18,7 @@ return new class extends Migration
             $table->date('start');
             $table->date('end');
             $table->dateTime('taken')->nullable();
-            $table->unsignedBigInteger('taken_at')->nullable();
+            $table->unsignedBigInteger('dispensed_at')->nullable();
             $table->string('instructions', 255)->nullable();
             $table->timestamps();
 
@@ -34,7 +33,7 @@ return new class extends Migration
                 ->restrictOnDelete()
                 ->cascadeOnUpdate();
 
-            $table->foreign('taken_at')
+            $table->foreign('dispensed_at')
                 ->references('id')
                 ->on('facilities')
                 ->cascadeOnUpdate();
@@ -46,6 +45,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('prescription_details');
+        Schema::enableForeignKeyConstraints();
     }
 };

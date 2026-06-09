@@ -10,11 +10,10 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        //
-        Schema::create('specialties', function (Blueprint $table) {
+    {        
+        Schema::create('allergens', function (Blueprint $table){
             $table->id();
-            $table->string('name', 150);
+            $table->string('name', 100)->unique();
         });
     }
 
@@ -23,7 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
-        Schema::dropIfExists('specialties');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('allergens');
+        Schema::enableForeignKeyConstraints();
     }
 };

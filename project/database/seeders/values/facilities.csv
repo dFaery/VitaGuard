@@ -1,4 +1,4 @@
-id,name,address,district_id,phone,rating_avg,rating_count,created_at,updated_at
+id,name,address,district_id,phone_number,rating_avg,rating_count,created_at,updated_at
 1,Rumah Sakit Sehat Selalu,Jl. Kesehatan No. 1,1,0311234567,4.50,300,2025-01-01 08:00:00,2025-01-01 08:00:00
 2,Klinik Medika Utama,Jl. Medika No. 22,2,0319876543,4.20,150,2025-01-02 09:00:00,2025-01-02 09:00:00
 3,Puskesmas Gubeng,Jl. Raya Gubeng No. 10,3,0314567890,4.00,90,2025-01-03 10:00:00,2025-01-03 10:00:00

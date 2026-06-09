@@ -47,7 +47,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        //
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('facility_schedules');
+        Schema::enableForeignKeyConstraints();
     }
 };

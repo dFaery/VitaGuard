@@ -17,7 +17,7 @@ return new class extends Migration
             $table->text('message');
             $table->string('sender', 50);
             $table->timestamp('created_at')->useCurrent();
-
+            $table->softDeletes();
             $table->foreign('consultation_id')
                 ->references('id')
                 ->on('consultations')
@@ -35,6 +35,8 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::disableForeignKeyConstraints();
         Schema::dropIfExists('chats');
+        Schema::enableForeignKeyConstraints();
     }
 };

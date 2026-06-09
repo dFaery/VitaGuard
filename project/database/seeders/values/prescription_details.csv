@@ -1,4 +1,4 @@
-id,prescription_id,medicine_id,quantity,start,end,taken,taken_at,instructions
+id,prescription_id,medicine_id,quantity,start,end,taken,dispensed_at,instructions
 1,1,1,10,2025-04-10,2025-04-14,2025-04-10 08:00:00,1,3x1 sesudah makan
 2,2,3,1,2025-04-10,2025-04-13,2025-04-10 21:00:00,2,3x1 sebelum tidur
 3,3,4,1,2025-04-11,2025-04-15,2025-04-11 07:00:00,3,Oles tipis 2x sehari

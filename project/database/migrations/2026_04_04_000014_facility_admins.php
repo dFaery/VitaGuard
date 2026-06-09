@@ -23,6 +23,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('facility_admin');
+        Schema::disableForeignKeyConstraints();
+        Schema::dropIfExists('facility_admins');
+        Schema::enableForeignKeyConstraints();
     }
 };
