@@ -12,11 +12,11 @@ class City extends Model
 
     public function province()
     {
-        $this->belongsTo(Province::class, 'province_id','id');
+        return $this->belongsTo(Province::class, 'province_id','id');
     }
 
     public function districts()
     {
-        $this->hasMany(District::class);
+        return $this->hasMany(District::class);
     }
 }
