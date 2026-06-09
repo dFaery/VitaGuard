@@ -14,7 +14,7 @@ return new class extends Migration
         //
         Schema::create('doctors', function (Blueprint $table) {
             $table->string('username', 50)->primary();
-            
+            $table->foreign('username')->references('username')->on('users');
             $table->string('prefix_name', 20)->nullable();
             $table->string('first_name', 100); 
             $table->string('middle_name', 100)->nullable();

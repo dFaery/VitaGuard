@@ -1,4 +1,4 @@
-member_username,blood_type,weight_kg,height_cm,smoking_status,alcohol_consumption
+member,blood_type,weight_kg,height_cm,smoking_status,alcohol_consumption
 jdoe01,O+,70.50,175.00,never,none
 charlie77,A+,85.00,170.50,current,light
 eko_prat,B+,68.20,165.00,never,none

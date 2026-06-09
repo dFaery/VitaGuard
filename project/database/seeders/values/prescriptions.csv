@@ -1,4 +1,4 @@
-id,doctor_username,member_username,consultation_id,notes
+id,doctor,member_username,consultation_id,notes
 1,doc001,jdoe01,1,Minum obat setelah makan
 2,doc002,charlie77,2,Konsumsi obat batuk 2x sehari
 3,doc003,eko_prat,3,Hindari makanan keras sementara

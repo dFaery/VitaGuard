@@ -1,4 +1,4 @@
-id,member_username,inputted_by,diagnosed_date,description
+id,member,inputted_by,diagnosed_date,description
 1,jdoe01,amelia.k,2023-01-15,"Gastritis akut. Pasien mengeluh nyeri ulu hati dan mual. Disarankan menghindari makanan pedas dan asam, serta menjaga pola makan teratur."
 2,charlie77,diana.m,2023-06-20,"Hipertensi tingkat 1. Tekanan darah 140/90 mmHg. Diberikan resep Amlodipine 5mg dan anjuran diet rendah garam."
 3,eko_prat,karen.t,2022-11-05,"Asma bronkial ringan. Sering kambuh saat cuaca dingin. Disarankan menghindari paparan debu dan diberikan inhaler Salbutamol untuk berjaga-jaga."

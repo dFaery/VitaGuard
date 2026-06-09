@@ -1,4 +1,4 @@
-id,member_username,allergen_id,inputted_by,severity,notes,created_at,updated_at
+id,member,allergen_id,inputted_by,severity,notes,created_at,updated_at
 1,jdoe01,5,amelia.k,mild,"Sakit perut setelah minum",2026-04-06 23:00:00,2026-04-06 23:00:00
 2,charlie77,8,budi_s,moderate,"Bersin dan mata berair",2026-04-06 23:00:00,2026-04-06 23:00:00
 3,eko_prat,1,diana.m,severe,"Riwayat anafilaksis",2026-04-06 23:00:00,2026-04-06 23:00:00

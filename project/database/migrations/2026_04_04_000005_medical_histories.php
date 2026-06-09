@@ -13,13 +13,13 @@ return new class extends Migration
     {
         Schema::create('medical_histories', function (Blueprint $table) {
             $table->id();
-            $table->string('member_username', 50);
+            $table->string('member', 50);
             $table->string('inputted_by', 50);
             $table->date('diagnosed_date');
             $table->text('description');
             $table->timestamps();
             $table->softDeletes();
-            $table->foreign('member_username')->references('username')->on('members')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->foreign('member')->references('username')->on('members')->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreign('inputted_by')->references('username')->on('users')->cascadeOnDelete()->cascadeOnUpdate();            
         });
     }

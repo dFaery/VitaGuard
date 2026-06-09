@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('articles', function (Blueprint $table) {
             $table->id();
-            $table->string('creator_username');
-            $table->foreign('creator_username')->references('username')->on('users')->cascadeOnDelete()->cascadeOnUpdate();
+            $table->string('creator');
+            $table->foreign('creator')->references('username')->on('users');
             $table->foreignId('article_topic_id')->constrained()->onUpdate('cascade');
             $table->text('content');                        
             $table->timestamps();

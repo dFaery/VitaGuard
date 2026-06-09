@@ -1,4 +1,4 @@
-id,doctor_username,start_time,end_time,consultation_fee,description
+id,doctor,start_time,end_time,consultation_fee,description
 1,doc001,2025-04-10 09:00:00,2025-04-10 12:00:00,150000.00,Konsultasi online umum
 2,doc002,2025-04-10 13:00:00,2025-04-10 15:00:00,175000.00,Konsultasi kesehatan ringan
 3,doc003,2025-04-11 08:00:00,2025-04-11 10:00:00,200000.00,Konsultasi gigi online

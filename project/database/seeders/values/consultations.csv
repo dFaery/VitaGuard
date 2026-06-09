@@ -1,4 +1,4 @@
-id,online_session_id,member_username,start_time,end_time,notes,paid_at
+id,online_session_id,member,start_time,end_time,notes,paid_at
 1,1,jdoe01,2025-04-10 09:15:00,2025-04-10 09:45:00,Pasien mengeluh pusing,2025-04-10 09:10:00
 2,2,charlie77,2025-04-10 13:30:00,2025-04-10 14:00:00,Batuk sejak 3 hari,2025-04-10 13:20:00
 3,3,eko_prat,2025-04-11 08:15:00,2025-04-11 08:45:00,Sakit gigi,2025-04-11 08:10:00
