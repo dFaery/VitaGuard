@@ -11,22 +11,22 @@ class Prescription extends Model
 
     public function doctor()
     {
-        return $this->belongsTo(Doctor::class, 'doctor_username', 'username');
+        return $this->belongsTo(Doctor::class, 'doctor', 'username');
     }
 
     public function member()
     {
-        return $this->belongsTo(Member::class, 'member_username', 'username');
+        return $this->belongsTo(Member::class, 'member', 'username');
     }
 
     public function appointment()
     {
-        return $this->belongsTo(Appointment::class);
+        return $this->belongsTo(Appointment::class,'appointment_id','id');
     }
 
     public function consultation()
     {
-        return $this->belongsTo(Consultation::class);
+        return $this->belongsTo(Consultation::class,'consultation_id','id');
     }
 
     public function prescriptionDetails()

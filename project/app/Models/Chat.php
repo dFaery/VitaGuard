@@ -9,8 +9,6 @@ class Chat extends Model
 {
     use HasFactory;
 
-    public $timestamps = false;
-
     public function consultation()
     {
         return $this->belongsTo(Consultation::class);

@@ -9,7 +9,4 @@ class Medicine extends Model
 {
     use HasFactory;
 
-     public function prescription_details(){
-        return $this->hasMany(PrescriptionDetail::class);
-    }
 }

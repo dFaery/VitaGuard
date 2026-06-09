@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class City extends Model
 {
     use HasFactory;
+    protected $table = 'cities';
 
     public function province()
     {
-        $this->belongsTo(Province::class, 'province_id');
+        $this->belongsTo(Province::class, 'province_id','id');
     }
 
-    public function district()
+    public function districts()
     {
         $this->hasMany(District::class);
     }

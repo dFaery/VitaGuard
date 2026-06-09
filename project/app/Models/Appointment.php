@@ -9,15 +9,15 @@ class Appointment extends Model
 {
     use HasFactory;
 
-    public function member_username(){
-        return $this->belongsTo(Member::class, 'member_username', 'username');
+    public function patient(){
+        return $this->belongsTo(Member::class, 'patient', 'username');
     }
 
-    public function schedule_id(){
+    public function schedule(){
         return $this->belongsTo(Schedule::class, 'schedule_id', 'id');
     }
 
-    public function appointments(){
-        return $this->hasMany(Appointment::class);
+    public function doctor(){
+        return $this->schedule()->doctor();
     }
 }

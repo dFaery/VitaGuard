@@ -12,7 +12,7 @@ class Doctor extends Model
     public $incrementing = false;
     protected $keyType = 'string';
 
-    public function doctorSpecialty()
+    public function specialties()
     {
         return $this->hasMany(DoctorSpecialty::class, 'username', 'username');
     }
@@ -22,22 +22,19 @@ class Doctor extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
-    public function districts(){
+    public function district(){
         return $this->belongsTo(District::class, 'district_id');
     }
 
     public function schedules()
     {
-        return $this->hasMany(Schedule::class);
+        return $this->hasMany(DoctorSchedule::class,'doctor','username');
     }
 
     public function prescriptions()
     {
-        return $this->hasMany(Prescription::class);
+        return $this->hasMany(Prescription::class,'doctor','username');
     }
 
-    public function onlineSession()
-    {
-        return $this->hasMany(OnlineSession::class);
-    }
+
 }

@@ -8,17 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class District extends Model
 {
     use HasFactory;
-    public function members()
-    {
-        return $this->hasMany(Member::class);
-    }
 
     public function doctors(){
-        return $this->hasMany(Doctor::class);
+        return $this->hasMany(Doctor::class,'district_id','id');
+    }
+    public function facilities(){
+        return $this->hasMany(Facility::class,'district_id','id');
     }
 
-    public function City()
-    {
-        return $this->belongsTo(City::class, 'city_id');
-    }
 }

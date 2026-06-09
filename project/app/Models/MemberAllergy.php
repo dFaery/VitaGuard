@@ -11,12 +11,12 @@ class MemberAllergy extends Model
 
     public function member()
     {
-        return $this->belongsTo(Member::class, 'member_username', 'username');
+        return $this->belongsTo(Member::class, 'member', 'username');
     }
 
     public function allergen()
     {
-        return $this->belongsTo(Allergen::class, 'allergen_id');
+        return $this->belongsTo(Allergen::class, 'allergen_id','id');
     }
 
     public function inputtedBy()

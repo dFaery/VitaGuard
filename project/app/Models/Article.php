@@ -11,7 +11,7 @@ class Article extends Model
 
     public function creator()
     {
-        return $this->belongsTo(User::class, 'creator_username', 'username');
+        return $this->belongsTo(User::class, 'creator', 'username');
     }
 
     public function topic()

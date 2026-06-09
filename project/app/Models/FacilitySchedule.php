@@ -8,8 +8,4 @@ use Illuminate\Database\Eloquent\Model;
 class FacilitySchedule extends Model
 {
     use HasFactory;
-        public function facility()
-        {
-            return $this->belongsTo(Facility::class, 'facility_id');
-        }
 }

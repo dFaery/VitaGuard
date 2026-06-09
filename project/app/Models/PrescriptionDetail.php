@@ -16,12 +16,12 @@ class PrescriptionDetail extends Model
 
     public function medicine()
     {
-        return $this->belongsTo(Medicine::class);
+        return $this->belongsTo(Medicine::class,'medicine_id','id');
     }
 
     public function facility()
     {
-        return $this->belongsTo(Facility::class, 'taken_at');
+        return $this->belongsTo(Facility::class, 'dispensed_at','id');
     }
 
 }

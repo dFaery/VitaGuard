@@ -9,7 +9,7 @@ class MedicalHistory extends Model
 {
     use HasFactory;
     
-    public function member_username()
+    public function member()
     {
         return $this->belongsTo(Member::class, 'member_username', 'username');
     }

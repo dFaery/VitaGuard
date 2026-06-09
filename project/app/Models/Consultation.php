@@ -24,9 +24,9 @@ class Consultation extends Model
         return $this->hasMany(Chat::class);
     }
 
-    public function prescriptions()
+    public function prescription()
     {
-        return $this->hasMany(Prescription::class);
+        return $this->hasOne(Prescription::class);
     }
     
 }

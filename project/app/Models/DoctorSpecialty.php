@@ -13,7 +13,7 @@ class DoctorSpecialty extends Model
         return $this->belongsTo(Doctor::class, 'username', 'username');
     }
 
-    public function specialties()
+    public function specialty()
     {        
         return $this->belongsTo(Specialty::class, 'specialty_id', 'id');
     }
