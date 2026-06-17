@@ -281,6 +281,7 @@
         <script src="{{ asset('js/adminTemplate/adminlte.js') }}"></script>
 
         @yield('scripts')
+        @stack('modals')
 
         </main>
         <!--end::App Main-->

@@ -35,12 +35,15 @@ Route::prefix('api/')->group(function () {
         Route::get('available-tables', [HomeController::class, 'getAvailableTables']);
         Route::get('fetch-table/{tableName}', [HomeController::class, 'fetchAdminTable']);
         Route::get('doctors/fetch', [DoctorController::class, 'fetchDoctors']);
-        Route::get('doctors/create-data', [DoctorController::class, 'create']); 
+        Route::get('doctors/create-data', [DoctorController::class, 'create']);
         Route::get('doctors/{username}/edit-data', [DoctorController::class, 'edit']);
 
         // POST
         Route::post('doctors/store', [DoctorController::class, 'store']);
         Route::post('doctors/{username}/update', [DoctorController::class, 'update']);
+
+        // DELETE        
+        Route::post('doctors/{doctor}/destroy', [DoctorController::class, 'destroy'])->name('doctor.deleteData');
     });
 });
 #endregion
@@ -75,7 +78,7 @@ Route::middleware(['auth'])->group(function () {
             return view('pages.admin.doctors.create');
         })->name('doctor.create');
 
-        Route::get('doctors/{username}/edit', function(){
+        Route::get('doctors/{username}/edit', function () {
             return view('pages.admin.doctors.edit');
         });
 

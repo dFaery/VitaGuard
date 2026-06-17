@@ -140,7 +140,7 @@ class DoctorController extends Controller
     {
         $doctor = Doctor::where('username', $username)->firstOrFail();
         $user = User::where('username', $username)->firstOrFail();
-        
+
         $request->validate([
             'email' => 'required|email|max:255|unique:users,email,' . $user->username . ',username',
             'phone_number' => 'required|string|max:20',
@@ -154,18 +154,18 @@ class DoctorController extends Controller
 
         DB::beginTransaction();
 
-        try {            
+        try {
             $user->update([
                 'email' => $request->email,
                 'phone_number' => $request->phone_number,
             ]);
-           
+
             if ($request->filled('password')) {
                 $user->update([
                     'password_hashed' => Hash::make($request->password)
                 ]);
             }
-            
+
             $doctor->update([
                 'prefix_name' => $request->prefix_name,
                 'first_name' => $request->first_name,
@@ -176,7 +176,7 @@ class DoctorController extends Controller
                 'address' => $request->address,
                 'district_id' => $request->district_id,
             ]);
-            
+
             DoctorSpecialty::where('doctor', $username)->delete();
             foreach ($request->specialties as $specialtyId) {
                 DoctorSpecialty::create([
@@ -203,9 +203,32 @@ class DoctorController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Doctor $doctor)
     {
-        //
+        DB::beginTransaction();
+
+        try {            
+            $doctor->specialties()->delete();
+            $username = $doctor->username;
+            $doctor->delete();
+            
+            User::where('username', $username)->delete();
+
+            DB::commit();
+            
+            return response()->json([
+                'status' => 'oke',
+                'msg' => 'Success Delete Data.'
+            ]);
+
+        } catch (\PDOException $ex) {
+            DB::rollBack();
+                        
+            return response()->json([
+                'status' => 'error',
+                'msg' => 'Make sure there is no related data before deleting it.'
+            ]);
+        }
     }
 
     public function fetchDoctors()
