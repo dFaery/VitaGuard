@@ -37,6 +37,7 @@ Route::prefix('api/')->group(function () {
         Route::get('doctors/fetch', [DoctorController::class, 'fetchDoctors']);
         Route::get('doctors/create-data', [DoctorController::class, 'create']);
         Route::get('doctors/{username}/edit-data', [DoctorController::class, 'edit']);
+        Route::get('articles/fetch', [ArticleController::class, 'fetchArticles']);
 
         // POST
         Route::post('doctors/store', [DoctorController::class, 'store']);
@@ -85,6 +86,14 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/consultation', function () {
             return view('pages.admin.consultation');
         });
+
+        Route::get('articles', function () {
+            return view('pages.admin.articles.index');
+        });
+
+        Route::get('articles/create', function () {
+            return view('pages.admin.articles.create');
+        })->name('articles.create');
     });
 
     Route::prefix('doctor')->middleware('can:' . Role::DOCTOR->value)->group(function () {

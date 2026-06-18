@@ -69,6 +69,15 @@ class ArticleController extends Controller
         //
     }
 
+    public function fetchArticles(){
+        $articles = Article::with(['topic', 'creator'])->get();
+
+        return response()->json([
+            'success' => true,
+            'data'=> $articles,
+        ]);
+    }
+
     public function getLatestArticles(Request $request)
     {
         $query = Article::query();
