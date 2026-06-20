@@ -63,19 +63,19 @@
                             let doctors = response.data;
 
                             let tableHtml = `
-                                        <div class="table-responsive">
-                                            <table class="table table-hover table-striped mb-0">
-                                                <thead class="bg-light">
-                                                    <tr>
-                                                        <th width="5%" class="text-center">ID</th>
-                                                        <th width="30%">Nama Dokter</th>
-                                                        <th width="25%">Spesialisasi</th>
-                                                        <th width="20%">Alamat</th>
-                                                        <th width="20%" class="text-center">Aksi</th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                    `;
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped mb-0">
+                                    <thead class="bg-light">
+                                        <tr>
+                                            <th width="5%" class="text-center">ID</th>
+                                            <th width="30%">Nama Dokter</th>
+                                            <th width="25%">Spesialisasi</th>
+                                            <th width="20%">Alamat</th>
+                                            <th width="20%" class="text-center">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                            `;
 
                             doctors.forEach(doctor => {
                                 let spcName = '-';
@@ -151,8 +151,7 @@
                         btn.html(originalText).prop('disabled', false);
                         $('#modalDeleteDoctor').modal('hide');
 
-                        if (data.status === "oke") {
-                            // Hapus baris dari tabel dengan animasi fadeOut
+                        if (data.status === "oke") {                            
                             $('#tr_' + usernameToDelete).fadeOut(300, function () {
                                 $(this).remove();
                             });

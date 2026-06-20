@@ -41,7 +41,24 @@
     </div>
 @endsection
 @push('modals')
-
+    <div class="modal fade" id="modalDeleteArticle" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle"></i> Konfirmasi Hapus</h5>
+                </div>
+                <div class="modal-body">
+                    <p>Apakah Anda yakin ingin menghapus Article dengan judul: <strong id="delete-username-text"
+                            class="text-danger"></strong>?</p>
+                    <small class="text-muted">Peringatan: Data yang dihapus tidak dapat dikembalikan.</small>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <button type="button" class="btn btn-danger" id="btn-confirm-delete">Ya, Hapus Data</button>
+                </div>
+            </div>
+        </div>
+    </div>
 @endpush
 @section('scripts')
     <script>
@@ -53,7 +70,7 @@
                 let tableWrapper = $('#table-wrapper');
 
                 $.ajax({
-                    url: `/api/admin/articles/fetch`,
+                    url: `/api/articles/fetch`,
                     method: 'GET',
                     success: function (response) {
                         if (response.success && response.data.length > 0) {
@@ -72,8 +89,11 @@
                                                         <td>${creatorName}</td>
                                                         <td>${topicName}</td>
                                                         <td class="text-center">
+                                                            <a href="/admin/articles/${article.id}/show" class="btn btn-sm btn-warning text-white">Detail</a>
                                                             <a href="/admin/articles/${article.id}/edit" class="btn btn-sm btn-info text-white">Edit</a>
-                                                            <button type="button" class="btn btn-sm btn-danger text-white btn-delete" data-id="${article.id}">Delete</button>
+                                                            <button type="button" class="btn btn-sm btn-danger text-white btn-delete" data-id="${article.id}">
+                                                                    Delete
+                                                            </button>                    
                                                         </td>
                                                     </tr>
                                                 `;
@@ -97,6 +117,45 @@
                 });
             }
             loadArticles()
+
+            $(document).on('click', '.btn-delete', function () {
+                articleToDelete = $(this).data('id');
+
+                $('#delete-username-text').text(articleToDelete);
+
+                $('#modalDeleteArticle').modal('show');
+            });
+
+            $('#btn-confirm-delete').on('click', function () {
+                let btn = $(this);
+                let originalText = btn.html();
+
+                btn.html('<span class="spinner-border spinner-border-sm"></span> Menghapus...').prop('disabled', true);
+
+                $.ajax({
+                    url: `/api/articles/${articleToDelete}/destroy`,
+                    method: 'POST',
+                    data: {
+                        '_token': '{{ csrf_token() }}'
+                    },
+                    success: function (response) {
+                        btn.html(originalText).prop('disabled', false);
+                        $('#modalDeleteArticle').modal('hide');
+
+                        if (response.success) {                            
+                            $('#tr_' + articleToDelete).fadeOut(300, function () {
+                                $(this).remove();
+                            });
+                        } else {
+                            alert('Gagal: ' + data.msg);
+                        }
+                    },
+                    error: function () {
+                        btn.html(originalText).prop('disabled', false);
+                        alert('Terjadi kesalahan pada server saat menghapus data. Pastikan tidak ada data terkait.');
+                    }
+                })
+            })
         })
 
     </script>

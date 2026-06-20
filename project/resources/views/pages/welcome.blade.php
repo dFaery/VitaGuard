@@ -75,7 +75,7 @@
                                 
                 function loadArticleTopics() {
                     $.ajax({
-                        url: "/api/articles/topics",
+                        url: "/api/articles/popular-topics",
                         method: "GET",
                         success: function (response) {
                             if (response.success && response.data.length > 0) {

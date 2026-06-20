@@ -23,6 +23,7 @@ use App\Data\Value\Account\Role;
 Route::prefix('api/')->group(function () {
     Route::get('articles/latest', [ArticleController::class, 'getLatestArticles']);
     Route::get('articles/topics', [ArticleController::class, 'getArticleTopics']);
+    Route::get('articles/popular-topics', [ArticleController::class, 'getPopularArticleTopics']);
 
     Route::prefix('auth/')->group(function () {
         Route::post('login', [AuthController::class, 'login']);
@@ -31,18 +32,28 @@ Route::prefix('api/')->group(function () {
         });
     });
 
+    Route::middleware(['auth'])->group(function () {
+        Route::get('articles/fetch', [ArticleController::class, 'fetchArticles']);
+        Route::get('articles/create-data', [ArticleController::class, 'create']);
+        Route::get('articles/{article}/detail', [ArticleController::class, 'show']);
+        Route::get('articles/{article}/edit-data', [ArticleController::class, 'edit'])->middleware('can:update,article');
+
+        // POST
+        Route::post('articles/store', [ArticleController::class, 'store']);
+        Route::post('articles/{article}/update', [ArticleController::class, 'update'])->middleware('can:update,article');
+        Route::post('articles/{article}/destroy', [ArticleController::class, 'destroy'])->middleware('can:delete,article');
+    });
+
     Route::middleware(['auth', 'can:' . Role::ADMIN->value])->prefix('admin')->group(function () {
         Route::get('available-tables', [HomeController::class, 'getAvailableTables']);
         Route::get('fetch-table/{tableName}', [HomeController::class, 'fetchAdminTable']);
         Route::get('doctors/fetch', [DoctorController::class, 'fetchDoctors']);
         Route::get('doctors/create-data', [DoctorController::class, 'create']);
         Route::get('doctors/{username}/edit-data', [DoctorController::class, 'edit']);
-        Route::get('articles/fetch', [ArticleController::class, 'fetchArticles']);
 
         // POST
         Route::post('doctors/store', [DoctorController::class, 'store']);
         Route::post('doctors/{username}/update', [DoctorController::class, 'update']);
-
         // DELETE        
         Route::post('doctors/{doctor}/destroy', [DoctorController::class, 'destroy'])->name('doctor.deleteData');
     });
@@ -63,6 +74,23 @@ Route::get('/doctors', function () {
 });
 
 Route::middleware(['auth'])->group(function () {
+    //can be access from admin & doctor
+    Route::prefix('admin/articles')->group(function () {
+        Route::get('/', function () {
+            return view('pages.admin.articles.index');
+        });
+
+        Route::get('/create', function () {
+            return view('pages.admin.articles.create');
+        })->name('articles.create');
+
+        Route::get('/{article}/show', function () {
+            return view('pages.admin.articles.show');
+        });
+        Route::get('/{article}/edit', function () {
+            return view('pages.admin.articles.edit');
+        });
+    });
 
     Route::prefix('admin')->middleware('can:' . Role::ADMIN->value)->group(function () {
         Route::get('/home', function () {
@@ -86,14 +114,6 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/consultation', function () {
             return view('pages.admin.consultation');
         });
-
-        Route::get('articles', function () {
-            return view('pages.admin.articles.index');
-        });
-
-        Route::get('articles/create', function () {
-            return view('pages.admin.articles.create');
-        })->name('articles.create');
     });
 
     Route::prefix('doctor')->middleware('can:' . Role::DOCTOR->value)->group(function () {

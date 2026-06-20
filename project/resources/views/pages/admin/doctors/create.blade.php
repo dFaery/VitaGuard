@@ -140,7 +140,7 @@
                     url: '/api/admin/doctors/create-data',
                     method: 'GET',
                     success: function (response) {
-                        if (response.success) {                            
+                        if (response.success) {
                             let districtSelect = $('#district_id');
                             districtSelect.empty();
                             districtSelect.append('<option value="" disabled selected>-- Select District ID --</option>');
@@ -162,7 +162,7 @@
                         alert('Gagal mengambil data referensi wilayah atau spesialisasi dari server.');
                     }
                 });
-            }            
+            }
             initCreateForm();
 
             $('#form-add-doctor').on('submit', function (e) {
