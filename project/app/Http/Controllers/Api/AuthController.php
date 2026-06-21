@@ -36,11 +36,13 @@ class AuthController extends Controller
             ...$credentials,
             'ip' => $request->ip(),
         ]);
-
+                   
         return response()->json([
             'message' => 'Login successful',
             'token' => $result['token'],
             'user' => $result['user'],
+            'redirect_url' => $result['user']->role ."/",
+            // admin/home
         ]);
     }
 

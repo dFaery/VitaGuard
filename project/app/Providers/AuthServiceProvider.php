@@ -4,6 +4,8 @@ namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
+use App\Data\Value\Account\Role;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +15,7 @@ class AuthServiceProvider extends ServiceProvider
      * @var array<class-string, class-string>
      */
     protected $policies = [
-        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+        Article::class => ArticlePolicy::class,
     ];
 
     /**
@@ -22,7 +24,18 @@ class AuthServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->registerPolicies();
-
-        //
+        // TODO: GANTI KE FOR LOOPS AND MAKE IT MORE ROBUST
+        Gate::define(Role::MEMBER->value, function ($user) {
+            return $user->role == Role::MEMBER->value;
+        });
+        Gate::define(Role::DOCTOR->value, function ($user) {
+            return $user->role == Role::DOCTOR->value;
+        });
+        Gate::define(Role::FACILITY_ADMIN->value, function ($user) {
+            return $user->role == Role::FACILITY_ADMIN->value;
+        });
+        Gate::define(Role::ADMIN->value, function ($user) {
+            return $user->role == Role::ADMIN->value;
+        });
     }
 }

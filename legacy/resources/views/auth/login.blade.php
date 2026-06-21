@@ -57,7 +57,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 
     <script src="{{ asset('loginTemplate/js/jquery-3.3.1.min.js') }}"></script>
