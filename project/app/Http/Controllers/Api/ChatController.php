@@ -1,18 +1,41 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
+use App\Models\Chat;
+use App\Models\Consultation;
+use App\Http\Controllers\Controller;
 
 class ChatController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($consultation)
     {
-        return view('pages.chat.index');
+        $consultation = Consultation::with('onlineSession')->find($consultation);
+        $layout = auth()->user()->role === 'doctor' ? 'layouts.navbar.admin' : 'layouts.navbar.main';
+        return view('pages.chat.index', compact('consultation', 'layout'));
     }
+
+    public function fetchMessages($consultation)
+    {
+        $chats = Chat::where('consultation_id', $consultation)
+            ->orderBy('created_at', 'asc')
+            ->get();
+
+        $consultationData = Consultation::find($consultation);
+        $isActive = is_null($consultationData->end_time);
+
+        return response()->json([
+            'success'      => true,
+            'data'         => $chats,
+            'is_active'    => $isActive,
+            'current_user' => auth()->user()->username,
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -27,7 +50,37 @@ class ChatController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'consultation_id' => 'required|exists:consultations,id',
+            'sender'          => 'required',
+            'message'         => 'required|string',
+        ]);
+
+        $chat = Chat::create([
+            'consultation_id' => $request->consultation_id,
+            'sender'          => $request->sender,
+            'message'         => $request->message,
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pesan berhasil dikirim',
+            'data'    => $chat,
+        ]);
+    }
+
+    public function close($consultation)
+    {
+        $consultation = Consultation::find($consultation);
+
+        $consultation->update([
+            'end_time' => now(),
+        ]);
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Konsultasi berhasil ditutup',
+        ]);
     }
 
     /**

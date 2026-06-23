@@ -9,14 +9,23 @@ class Chat extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'consultation_id',
+        'message',
+        'sender',
+    ];
+
+    protected $casts = [
+        'created_at' => 'datetime',
+    ];
+
     public function consultation()
     {
-        return $this->belongsTo(Consultation::class);
+        return $this->belongsTo(Consultation::class, 'consultation_id');
     }
 
-    public function user()
+    public function senderUser()
     {
         return $this->belongsTo(User::class, 'sender', 'username');
     }
-    
 }

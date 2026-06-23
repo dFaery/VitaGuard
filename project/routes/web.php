@@ -5,6 +5,8 @@ use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\ArticleController;
 use App\Http\Controllers\Api\HomeController;
 use App\Http\Controllers\Api\DoctorController;
+use App\Http\Controllers\Api\ChatController;
+use App\Http\Controllers\Api\ConsultationController;
 use App\Data\Value\Account\Role;
 
 /*
@@ -37,11 +39,15 @@ Route::prefix('api/')->group(function () {
         Route::get('articles/create-data', [ArticleController::class, 'create']);
         Route::get('articles/{article}/detail', [ArticleController::class, 'show']);
         Route::get('articles/{article}/edit-data', [ArticleController::class, 'edit'])->middleware('can:update,article');
-
+        Route::get('consultations/fetch', [ConsultationController::class, 'fetchConsultations']);
+        Route::get('chat/{consultation}', [ChatController::class, 'fetchMessages']);
+        
         // POST
         Route::post('articles/store', [ArticleController::class, 'store']);
         Route::post('articles/{article}/update', [ArticleController::class, 'update'])->middleware('can:update,article');
         Route::post('articles/{article}/destroy', [ArticleController::class, 'destroy'])->middleware('can:delete,article');
+        Route::post('chat/send', [ChatController::class, 'store']);
+        Route::post('chat/{consultation}/close', [ChatController::class, 'close']);
     });
 
     Route::middleware(['auth', 'can:' . Role::ADMIN->value])->prefix('admin')->group(function () {
@@ -87,10 +93,16 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/{article}/show', function () {
             return view('pages.admin.articles.show');
         });
+
         Route::get('/{article}/edit', function () {
             return view('pages.admin.articles.edit');
         });
+
     });
+
+    Route::get('/member/consultations', [ConsultationController::class, 'memberPage']);
+
+    Route::get('/chat/{consultation}', [ChatController::class, 'index']);
 
     Route::prefix('admin')->middleware('can:' . Role::ADMIN->value)->group(function () {
         Route::get('/home', function () {
@@ -117,7 +129,11 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('doctor')->middleware('can:' . Role::DOCTOR->value)->group(function () {
-        Route::get('/');
+        Route::get('/', function () {
+            return view('pages.doctors.index');
+        });
+
+        Route::get('/consultations', [ConsultationController::class, 'doctorPage']);
     });
 });
 #endregion
