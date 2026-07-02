@@ -138,12 +138,14 @@ Route::middleware(['auth'])->group(function () {
 
     });
 
-    Route::get('/member/consultations', function () {
+    Route::get('/home', function () {
+        return view('pages.home.index');
+    });
+
+    Route::get('/consultations', function () {
         return view('pages.consultations.member');
     });
     
-
-    Route::get('/chat/{consultation}', [ChatController::class, 'show'])->name('chat.show');
 
     Route::get('/chat/{consultation}', [ChatController::class, 'show'])->name('chat.show');
 
